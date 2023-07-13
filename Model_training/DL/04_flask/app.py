@@ -26,8 +26,10 @@ def load_model(model_path) :
     return model
 
 # 모델 로드 
-model_path = "/Users/sang-yun/Desktop/Jupyter/Model_training/data/vgg11-bbd30ac9.pth"
-model = load_model(model_path)
+# model_path = "/Users/sang-yun/Desktop/Jupyter/Model_training/data/vgg11-bbd30ac9.pth"
+# model = load_model(model_path)
+model = VGG11(num_classes=1000)
+model.eval()
 
 # 이미지 전처리 함수 
 def preprocess_image(image) : 
