@@ -1,4 +1,5 @@
 # VGG11모델과  ResNet18모델 앙상블 - 보팅 실습
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,11 +8,10 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import CIFAR10
 from torchvision.models import vgg11, resnet18
-
 from sklearn.metrics import accuracy_score
 
 # GPU setting
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("mps")
 
 # 데이터셋 전처리
 train_transform = transforms.Compose([
@@ -20,6 +20,7 @@ train_transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5,0.5,0.5), (0.5,0.5,0.5))
 ])
+
 test_transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
@@ -55,7 +56,15 @@ class EnsembleModel(nn.Module) :
     def forward(self, x):
         outputs = [model(x) for model in self.models]
         outputs = torch.stack(outputs, dim=0)
+        """
+        예를 들어, 모델 수가 3개이고 각 모델의 출력값이 (batch_size, num_classes) 형태인 경우,
+        torch.stack(outputs, dim=0)를 사용하면 출력값의 차원이 (3, batch_size, num_classes)인 텐서가 생성됩니다.
+        이렇게 차원을 쌓으면 나중에 평균이나 통계 연산을 수행하기 편리하게 되고, 앙상블 모델의 최종 예측에 활용됩니다.
+        """
         avg_output = torch.mean(outputs, dim=0)
+        """utputs 텐서는 (2, 32, num_classes)의 형태가 됩니다. 
+        여기서 torch.mean(outputs, dim=0)를 수행하면 첫 번째 차원인 모델 수에 따라 평균이 계산되어 (32, num_classes) 형태의 텐서가 생성됩니다. 
+        이것이 최종 앙상블 예측값이 됩니다."""
 
         return avg_output
 
@@ -97,6 +106,8 @@ def combine_predictions(predictions) :
     combined = torch.cat(predictions, dim=0)
     _, predicted_lables = torch.max(combined, 1)
     return predicted_lables
+
+
 if __name__ == '__main__' :
     for epoch in range(1, 20) :
         print(f"Train model ... {epoch}")
