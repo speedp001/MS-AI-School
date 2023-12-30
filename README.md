@@ -21,7 +21,7 @@
     - data_collection: 데이터 분할과 크롤링
 
 - [Model_training]
-    - ANN: 인공지능 기초지식과 머신러닝 함수
+    - ANN: 인공지능 기초지식과 머신러닝 함수
     - CNN: CNN의 개념과 대표적인 모델
     - DL: 딥러닝의 여러가지 기법
     - Keras, Sklearn: Keras, Sklearn을 활용한 예제
