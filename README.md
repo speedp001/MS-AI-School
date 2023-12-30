@@ -1,6 +1,8 @@
 # MS AI School
 > MS AI School에서 배운 통계 수학적 지식부터 데이터 프로세싱 및 시각화, Pytorch, 머신러닝, 딥러닝까지 기초부터 적용까지 자세한 개념과 코드를 다루었습니다. Jupyter notebook 마크다운으로 설명을 달아놓았고 직접 실습하였던 코드도 제공됩니다. 학습 목차와 실습에 사용되는 데이터들은 링크를 참고해주세요.
 
+[<img src="/Users/sang-yun/Desktop/MS_image.jpeg" width="180" height="180">](https://www.elsewhen.com/)
+
 ### 학습 목차
 - [Data analysis]
     - data analysis: 통계 데이터 분석
